@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>web app</title>
+    <style>
+        li{
+            list-style: none;
+        }
+        .box-shadow-1px{
+            position: relative;
+            border:none;
+        }
+        /*占用伪类*/
+        .box-shadow-1px:after{
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom:0;
+            background: #000;
+            width: 100%;
+            height: 1px;
+            transform: scaleY(0.5);
+            transform-origin: 50% 100%;
+        }
+        .border-normal{
+            border-bottom: 1px solid red;
+        }
+        .border-hair {
+            height:1px;
+            background:#000;
+            -webkit-transform: scaleY(0.5);
+            -webkit-transform-origin:0 0;
+            overflow: hidden;
+        }
+        /* 2倍屏 */
+        @media only screen and (-webkit-min-device-pixel-ratio: 2.0) {
+            .border-hair::after {
+                -webkit-transform: scaleY(0.5);
+                transform: scaleY(0.5);
+            }
+            .box-shadow-1px::after {
+                -webkit-transform: scaleY(0.5);
+                transform: scaleY(0.5);
+            }
+        }
+
+        /* 3倍屏 */
+        @media only screen and (-webkit-min-device-pixel-ratio: 3.0) {
+            .border-hair::after {
+                -webkit-transform: scaleY(0.33);
+                transform: scaleY(0.33);
+            }
+            .box-shadow-1px::after {
+                -webkit-transform: scaleY(0.33);
+                transform: scaleY(0.33);
+            }
+        }
+    </style>
+</head>
+<body>
+    <ul>
+        <!--    直接占用伪类，会引起样式冲突    -->
+        <li class="box-shadow-1px">
+            000
+        </li>
+        <!--    在引起样式冲突时可以选择增加元素的方式    -->
+        <li>
+            aaa
+            <div class="border-hair"></div>
+        </li>
+        <li class="border-normal">bbb</li>
+        <li class="border-normal">ccc</li>
+    </ul>
+</body>
+</html>
